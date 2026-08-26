@@ -46,10 +46,10 @@ with st.sidebar:
     num_teams = st.number_input("Number of teams", min_value=2, max_value=20, value=12)
     st.caption("Roster spots per position (full roster incl. bench, defines replacement level)")
     roster_spots = {
-        "QB": st.number_input("QB spots", min_value=0, max_value=6, value=2),
-        "RB": st.number_input("RB spots", min_value=0, max_value=10, value=5),
-        "WR": st.number_input("WR spots", min_value=0, max_value=10, value=6),
-        "TE": st.number_input("TE spots", min_value=0, max_value=6, value=2),
+        "QB": st.number_input("QB spots", min_value=0, max_value=6, value=2, help="1 starter + 1 backup"),
+        "RB": st.number_input("RB spots", min_value=0, max_value=10, value=4, help="2 starters + bench"),
+        "WR": st.number_input("WR spots", min_value=0, max_value=10, value=5, help="2 starters + bench"),
+        "TE": st.number_input("TE spots", min_value=0, max_value=6, value=1, help="1 starter, no bench TE"),
         "K": st.number_input("K spots", min_value=0, max_value=3, value=1),
         "DST": st.number_input("DST spots", min_value=0, max_value=3, value=1),
     }
