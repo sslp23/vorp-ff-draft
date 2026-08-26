@@ -73,6 +73,8 @@ with st.sidebar:
     )
 
     st.header("Draft control")
+    if st.session_state.drafted:
+        st.caption(f"Last pick (#{len(st.session_state.drafted)}): {st.session_state.drafted[-1]}")
     if st.session_state.drafted and st.button("Undo last pick"):
         st.session_state.drafted.pop()
         save_drafted(st.session_state.drafted)
@@ -88,6 +90,15 @@ board = compute_vorp(raw, num_teams, roster_spots, decay, flex_spots)
 
 available = board[~board["player"].isin(st.session_state.drafted)].sort_values("vorp", ascending=False)
 drafted_df = board[board["player"].isin(st.session_state.drafted)]
+
+if st.session_state.drafted:
+    last_row = board[board["player"] == st.session_state.drafted[-1]]
+    if not last_row.empty:
+        lr = last_row.iloc[0]
+        st.info(
+            f"Last pick (#{len(st.session_state.drafted)}): **{lr['player']}** "
+            f"({lr['team']}, {lr['position']}) — VORP {lr['vorp']:.1f}"
+        )
 
 if available.empty:
     st.subheader("No players left to draft.")
